@@ -17,6 +17,10 @@ const ModelAlimento = mongoose.model("Alimento", {
         type: String,
         required: true,
     },
+    categoria: {
+        type: String,
+        required: true,
+    },
     riscoAlergia: {
         type: String,
         required: true,
