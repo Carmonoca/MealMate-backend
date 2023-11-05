@@ -10,8 +10,12 @@ const ModelLogin = require("../models/ModelLogin");
 
 // Listar todos os usuários
 router.get("/", async (req, res) => {
-  const usuarios = await ModelLogin.find({});
-  return res.status(200).send(usuarios);
+  try {
+    const usuarios = await ModelLogin.find({});
+    return res.status(200).send(usuarios);
+  } catch (error) {
+    return res.status(500).send({ error: "Erro ao buscar usuários" });
+  }
 });
 
 // Listar um usuário
