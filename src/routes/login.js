@@ -28,6 +28,8 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   const { email, senha } = req.body;
 
+  console.log(email, senha);
+
   if (!email) {
     return res.status(422).send({ error: "Email não informado" });
   }
@@ -46,8 +48,16 @@ router.post("/", async (req, res) => {
       return res.status(401).send({ error: "Erro ao descriptografar a senha" });
     }
 
+    const user = {
+      email: usuarioSenha.email,
+      nome: usuarioSenha.nome,
+      dataNascimento: usuarioSenha.dataNascimento,
+      categoriaPlano: usuarioSenha.categoriaPlano,
+      restricaoAlimentar: usuarioSenha.restricaoAlimentar
+    }
     if (result) {
-      return res.status(200).send({ message: "Autenticado com sucesso" });
+      console.log(usuarioSenha);
+      return res.status(200).send({ message: "Autenticado com sucesso", user });
     }
 
     return res.status(401).send({ error: "Usuário ou senha inválidos" });
